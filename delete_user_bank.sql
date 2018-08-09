@@ -28,7 +28,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-SELECT cw.delete_user_bank('enrique2@enrique.com');
+SELECT cw.delete_user_bank('banco@atreva.mx');
 
 
 --SELECT cw.delete_a_score_bank(6);

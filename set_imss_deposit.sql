@@ -9,7 +9,7 @@ IN in_gender VARCHAR,
 OUT status VARCHAR
 ) AS $$
 BEGIN
-		IF NOT EXISTS (SELECT 1 from cw.user_personal_data as u WHERE u.id = in_user_id::uuid) THEN
+		IF NOT EXISTS (SELECT 1 from cw.imss_products as u WHERE u.user_id = in_user_id::uuid) THEN
 				-- insert data of payments of pension
 				INSERT INTO cw.imss_products
 					( user_id, nss, ingreso_bruto, last_deposit )
