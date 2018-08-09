@@ -10,6 +10,7 @@ OR REPLACE FUNCTION cw.create_user_bank (
 	OUT status VARCHAR
 ) AS $$
 DECLARE v_id VARCHAR;
+DECLARE resp_status INTEGER;
 BEGIN
 
 	-- se crea un nuevo usuario en la BD
@@ -35,9 +36,10 @@ BEGIN
 	UPDATE cw.bank_variables SET "range" = '1-99'  WHERE var_fix_id = 7 AND bank_id = in_bank_id;
 
 	--	SE ESTABLECEN LAS VARIABLES PARA EL ÁRBOL
-	INSERT INTO cw.bank_follow_variables (bank_id, variable_id) SELECT
+	INSERT INTO cw.bank_follow_variables  (bank_id, variable_id, short) SELECT
 		in_bank_id,
-		bv. ID
+		bv. ID,
+		vf.sort
 	FROM
 		cw.bank_variables AS bv
 	INNER JOIN cw.variables_fix AS vf ON bv.var_fix_id = vf. ID
@@ -45,12 +47,18 @@ BEGIN
 		bv.bank_id = in_bank_id
 	ORDER BY
 		vf.sort ;
-	--raise notice 'Value: %', v_id;
+
+	SELECT cw.new_icc_for_bank(in_bank_id) INTO resp_status;
+	raise notice 'CREACCIÓN ICC: %', resp_status;
+
+	SELECT cw.new_score_for_bank(in_bank_id) INTO resp_status;
+	raise notice 'CREACCIÓN score: %', resp_status;
+
 	status = 'success';
 END;
 $$ LANGUAGE 'plpgsql';
 
-SELECT cw.create_user_bank('enrique2@enrique.com', '123', 12, 'Ronaldo', '', 'de Assis', 'Moreira');
+SELECT cw.create_user_bank('banco@atreva.mx', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 5, 'Ronaldo', '', 'de Assis', 'Moreira');
 
 
 --SELECT cw.delete_a_score_bank(6);
