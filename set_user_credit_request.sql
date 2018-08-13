@@ -46,7 +46,12 @@ BEGIN
 	SELECT * INTO user_row FROM cw.user_personal_data AS upd WHERE upd."id" = in_user_id::uuid;
 	
 	SELECT * INTO imss_row FROM cw.imss_products AS imss WHERE imss.user_id = in_user_id::uuid;
-	raise notice 'Value: %', imss_row;
+	IF imss_row IS NULL THEN
+		raise notice 'ES NULO: %', imss_row;
+	ELSE
+		raise notice 'NO ES NULO: %', imss_row;
+	END IF;
+	
 	SELECT '{"gender": 1}'::json into data_user;
 	SELECT '{"gender": "'||user_row.gender::TEXT||
 	'", "nationality": "'||user_row.nationality::TEXT||

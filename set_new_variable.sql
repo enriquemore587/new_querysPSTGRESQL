@@ -31,7 +31,7 @@ $$ LANGUAGE 'plpgsql';
 
 
 SELECT cw.set_new_variable(
-	'Ingreso BRUTO',		--in_variable_name
+	'Ingreso NETO',		--in_variable_name
 	2,									--in_category_variable 2 = perfil, 1 = buro
-	TRUE
+	TRUE								--in_calc_show
 );
