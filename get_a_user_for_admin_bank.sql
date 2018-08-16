@@ -40,6 +40,7 @@ BEGIN
 	END IF;
 	
 	SELECT '{"rfc": "'||user_row.rfc||
+	'", "user_id": "'||in_user_id||
 	'", "num_client": "'||u_row.num_client||
 	'", "email": "'||u_row.mail||
 	'", "name": "'||user_row.name||

@@ -5,7 +5,10 @@ OR REPLACE FUNCTION cw.delete_banco (
 ) AS $$
 DECLARE item_id uuid[];
 DECLARE
-      lista  uuid[] := ARRAY(SELECT user_id FROM cw.users_bank WHERE user_id in (SELECT "id" FROM cw.users WHERE id_profile = 4) AND bank_id = in_bank_id);
+      lista  uuid[] := ARRAY(SELECT user_id FROM cw.users_bank WHERE user_id in (
+																																	SELECT "id" FROM cw.users 
+																																					WHERE (id_profile = 4 OR id_profile = 5 OR id_profile = 6 OR id_profile = 7))
+																																AND bank_id = in_bank_id);
 BEGIN
 	-- ELIMINO DE BANCK_FOLLOW_VARIABLES
 
