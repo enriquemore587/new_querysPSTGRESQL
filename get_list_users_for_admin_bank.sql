@@ -13,7 +13,7 @@ BEGIN
 		temp_row := '';
 		-- RETORNA LISTA DE USUARIOS PARA LA TABLA DEL FRONT
 		FOR u_row IN SELECT * FROM "cw"."users"
-		WHERE "id" in (SELECT user_id FROM "cw"."users_bank" WHERE bank_id = in_bank_id) AND (id_profile = 4 OR id_profile = 6)
+		WHERE active IS TRUE AND "id" in (SELECT user_id FROM "cw"."users_bank" WHERE bank_id = in_bank_id) AND (id_profile = 4 OR id_profile = 5 OR id_profile = 6)
     LOOP
 				IF u_row.num_client IS NULL THEN
 						u_row.num_client := 'NO DATA';
