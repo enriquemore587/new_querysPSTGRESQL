@@ -28,8 +28,8 @@ ELSE
 -----
 	IF EXISTS ( SELECT 1 FROM cw.bank_variables AS bv WHERE bv.bank_id = in_id_bank AND bv.var_fix_id = in_id_var_fix ) THEN
 			
-	UPDATE cw.bank_variables SET active = in_active
-	WHERE bank_id = in_id_bank AND var_fix_id = in_id_var_fix;
+					UPDATE cw.bank_variables SET active = in_active
+					WHERE bank_id = in_id_bank AND var_fix_id = in_id_var_fix;
 
 	--	NO EXISTE REGISTRO EN LA TABLA => SE INSERTA UN NUEVO REGISTRO
 	ELSIF NOT EXISTS ( SELECT 1 FROM cw.bank_variables AS bv WHERE bv.bank_id = in_id_bank AND bv.var_fix_id = in_id_var_fix ) THEN

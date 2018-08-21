@@ -46,27 +46,35 @@ BEGIN
 	SELECT * INTO user_row FROM cw.user_personal_data AS upd WHERE upd."id" = in_user_id::uuid;
 	
 	SELECT * INTO imss_row FROM cw.imss_products AS imss WHERE imss.user_id = in_user_id::uuid;
-	IF imss_row IS NULL THEN
+
+	IF imss_row IS NULL OR user_row IS NULL  THEN
+		SELECT '{"status": "no information"}'::json into data_user;
+		/*
 		raise notice 'ES NULO: %', imss_row;
+		raise notice 'ES data_user: %', data_user;
+		*/
 	ELSE
+		SELECT '{"status": "OK information"}'::json into data_user;
+		/*
 		raise notice 'NO ES NULO: %', imss_row;
+		raise notice 'ES data_user: %', data_user;
+		*/	
+		SELECT '{"gender": "'||user_row.gender::TEXT||
+		'", "nationality": "'||user_row.nationality::TEXT||
+		'", "birthdate": "'||user_row.birthdate::TEXT||
+		'", "civil_status" : "'||user_row.civil_status::TEXT||
+		'", "ocupation_id":'||user_row.ocupations_id ||
+		', "ingreso_bruto":'||imss_row.ingreso_bruto ||
+		', "last_deposit":'||imss_row.last_deposit ||
+		', "nss": "'||imss_row.nss
+		||'"}' into temp_text;
+		SELECT temp_text::json INTO data_user;
 	END IF;
 	
-	SELECT '{"gender": 1}'::json into data_user;
-	SELECT '{"gender": "'||user_row.gender::TEXT||
-	'", "nationality": "'||user_row.nationality::TEXT||
-	'", "birthdate": "'||user_row.birthdate::TEXT||
-	'", "civil_status" : "'||user_row.civil_status::TEXT||
-	'", "ocupation_id":'||user_row.ocupations_id ||
-	', "ingreso_bruto":'||imss_row.ingreso_bruto ||
-	', "last_deposit":'||imss_row.last_deposit ||
-	', "nss": "'||imss_row.nss
-	||'"}' into temp_text;
-	SELECT temp_text::json INTO data_user;
 
 END;
 $BODY$
   LANGUAGE 'plpgsql' VOLATILE COST 100
 ;
 
-SELECT cw.set_user_credit_request('c99cc76a-4a1c-4fb4-a19f-dd0b3cff815d',7,10000,2600,50000,24,true);
+SELECT cw.set_user_credit_request('41343e72-a624-4850-aed1-515395f12cec',5,10000,2600,50000,24,TRUE);

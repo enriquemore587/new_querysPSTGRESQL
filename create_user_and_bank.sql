@@ -59,4 +59,4 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-SELECT cw.create_user_bank('adminBanco@atreva.mx', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 5, 'Ronaldo', '', 'de Assis', 'Moreira', 'MYRFC');
+SELECT cw.create_user_bank('admin@atreva.mx', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 5, 'Ronaldo', '', 'de Assis', 'Moreira', 'MYRFC');

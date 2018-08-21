@@ -27,7 +27,7 @@ BEGIN
 	INSERT INTO cw.user_personal_data ("id", "name", "name2", "last_name", "last_name2", rfc) 
 				VALUES(v_id::uuid, UPPER(in_user_name), UPPER(in_user_name2), UPPER(in_user_last_name), UPPER(in_user_last_name2), UPPER(in_rfc));
 
-	status = 'success';
+	status = v_id::VARCHAR;
 END;
 $$ LANGUAGE 'plpgsql';
 

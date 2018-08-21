@@ -126,6 +126,6 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
---SELECT cw.get_user_for_formaliza('e3c68cad-da35-dc1d-8cd1-aec1cd590b64', 'folio', 5);
+--SELECT cw.get_user_for_formaliza('0c81019c-c860-627d-856e-62065f4ee9c0', 'folio', 5);
 --SELECT cw.get_user_for_formaliza('VEAE940421', 'rfc', 5);
 SELECT cw.get_user_for_formaliza('VEAE940421HMCRMN06', 'curp', 5);
