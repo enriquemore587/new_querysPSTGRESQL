@@ -36,6 +36,9 @@ BEGIN
 	-- SE ESTABLECEN LOS PARAMETROS POR DEFAULT
 	UPDATE cw.bank_variables SET "range" = '1-99'  WHERE var_fix_id = 7 AND bank_id = in_bank_id;
 
+	-- SE ESTABLECEN LOS PARAMETROS PARA ICC
+	UPDATE cw.bank_variables SET "range" = '4-9'  WHERE var_fix_id = 3 AND bank_id = in_bank_id;
+
 	--	SE ESTABLECEN LAS VARIABLES PARA EL ÁRBOL
 	INSERT INTO cw.bank_follow_variables  (bank_id, variable_id, short) SELECT
 		in_bank_id,
