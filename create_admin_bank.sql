@@ -29,4 +29,4 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-SELECT cw.create_admin_bank('admin@atreva.mx', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 5, 'Peter', '', 'Benjamin', 'Parker');
+SELECT cw.create_admin_bank('hsbcAdmin@atreva.mx', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 7, 'Jose', 'Enrique', 'Bautista', 'Garcia');

@@ -19,7 +19,7 @@ BEGIN
 
 
 		SELECT * INTO user_row FROM cw.user_personal_data WHERE "id" = (SELECT user_id FROM cw.user_credit_request WHERE folio = in_folio);
-		raise notice 'folio: %', user_row;
+		raise notice 'folio user_row: %', user_row;
 		SELECT '{"nombre":"'||user_row.name::TEXT||' '||user_row.name2::TEXT
 		||'", "paterno":"'||user_row.last_name::TEXT
 		||'","materno":"'||user_row.last_name2::TEXT
@@ -32,9 +32,8 @@ BEGIN
 
 
 		SELECT * INTO user_address_row FROM cw.user_address WHERE id = user_row.id::uuid;
-
+		raise notice 'folio user_address_row: % id %', user_address_row,user_row.id;
 		-- obtiene estado
-		
 
 		temp_text =  temp_text||'"direccion":'||'"'||user_address_row.street::TEXT
 		
@@ -53,7 +52,7 @@ BEGIN
 
 		SELECT * INTO user_row FROM cw.user_personal_data WHERE curp = in_folio;
 		--SELECT * INTO user_row FROM cw.user_personal_data WHERE "id" = (SELECT user_id FROM cw.user_credit_request WHERE folio = in_folio);
-		raise notice 'curp: %', user_row;
+		raise notice 'curp user_row: % folio %', user_row,in_folio;
 		SELECT '{"nombre":"'||user_row.name::TEXT||' '||user_row.name2::TEXT
 		||'", "paterno":"'||user_row.last_name::TEXT
 		||'","materno":"'||user_row.last_name2::TEXT
@@ -64,7 +63,7 @@ BEGIN
 		INTO temp_text;
 
 		SELECT * INTO user_address_row FROM cw.user_address WHERE id = user_row.id::uuid;
-
+		raise notice 'curp user_address_row: % folio % id %', user_address_row,in_folio, user_row.id;
 		-- obtiene estado
 		
 
@@ -120,12 +119,11 @@ BEGIN
 	END IF;
 
 	
-
 	SELECT temp_text::json INTO data_user;
 
 END;
 $$ LANGUAGE 'plpgsql';
 
---SELECT cw.get_user_for_formaliza('0c81019c-c860-627d-856e-62065f4ee9c0', 'folio', 5);
---SELECT cw.get_user_for_formaliza('VEAE940421', 'rfc', 5);
-SELECT cw.get_user_for_formaliza('VEAE940421HMCRMN06', 'curp', 5);
+--SELECT cw.get_user_for_formaliza('8e62c052-f181-f0e3-9ddd-273f319c9c12', 'folio', 5);
+SELECT cw.get_user_for_formaliza('VEAE940421', 'rfc', 5);
+--SELECT cw.get_user_for_formaliza('HERC810615HDFRMR03', 'curp', 7);

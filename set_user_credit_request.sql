@@ -47,12 +47,10 @@ BEGIN
 	
 	SELECT * INTO imss_row FROM cw.imss_products AS imss WHERE imss.user_id = in_user_id::uuid;
 
-	IF imss_row IS NULL OR user_row IS NULL  THEN
-		SELECT '{"status": "no information"}'::json into data_user;
-		/*
-		raise notice 'ES NULO: %', imss_row;
-		raise notice 'ES data_user: %', data_user;
-		*/
+	IF user_row IS NULL  THEN
+		SELECT '{"status": "user_personal_data"}'::json into data_user;
+	ELSEIF imss_row IS NULL THEN
+		SELECT '{"status": "no imss_products"}'::json into data_user;
 	ELSE
 		SELECT '{"status": "OK information"}'::json into data_user;
 		/*
