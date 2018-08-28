@@ -52,11 +52,12 @@ BEGIN
 	ELSEIF imss_row IS NULL THEN
 		SELECT '{"status": "no imss_products"}'::json into data_user;
 	ELSE
-		SELECT '{"status": "OK information"}'::json into data_user;
-		/*
-		raise notice 'NO ES NULO: %', imss_row;
-		raise notice 'ES data_user: %', data_user;
-		*/	
+		--SELECT '{"status": "OK information"}'::json into data_user;
+
+		
+		raise notice 'imss_row: %', imss_row;
+		raise notice 'user_row: %', user_row;
+			
 		SELECT '{"gender": "'||user_row.gender::TEXT||
 		'", "nationality": "'||user_row.nationality::TEXT||
 		'", "birthdate": "'||user_row.birthdate::TEXT||
@@ -67,6 +68,7 @@ BEGIN
 		', "nss": "'||imss_row.nss
 		||'"}' into temp_text;
 		SELECT temp_text::json INTO data_user;
+		status = 0;
 	END IF;
 	
 
