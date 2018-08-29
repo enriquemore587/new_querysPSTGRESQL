@@ -65,10 +65,10 @@ BEGIN
 		'", "ocupation_id":'||user_row.ocupations_id ||
 		', "ingreso_bruto":'||imss_row.ingreso_bruto ||
 		', "last_deposit":'||imss_row.last_deposit ||
+		', "ingreso_neto":'||imss_row.ingreso_neto ||
 		', "nss": "'||imss_row.nss
 		||'"}' into temp_text;
 		SELECT temp_text::json INTO data_user;
-		status = 0;
 	END IF;
 	
 

@@ -21,5 +21,5 @@ END;
 $BODY$ LANGUAGE 'plpgsql' VOLATILE COST 100;
 
 SELECT
-	cw.delete_variable (15);
+	cw.delete_variable (18);
 

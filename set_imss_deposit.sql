@@ -6,22 +6,24 @@ IN in_bruto FLOAT,
 IN in_last_deposit FLOAT,
 IN in_civil_status INTEGER,
 IN in_gender VARCHAR,
+IN in_neto FLOAT,
 OUT status VARCHAR
 ) AS $$
 BEGIN
 		IF NOT EXISTS (SELECT 1 from cw.imss_products as u WHERE u.user_id = in_user_id::uuid) THEN
 				-- insert data of payments of pension
 				INSERT INTO cw.imss_products
-					( user_id, nss, ingreso_bruto, last_deposit )
+					( user_id, nss, ingreso_bruto, last_deposit, ingreso_neto)
 				VALUES 
-					( in_user_id::uuid, in_nss_number, in_bruto, in_last_deposit );
+					( in_user_id::uuid, in_nss_number, in_bruto, in_last_deposit, in_neto );
 				status = 'SAVED';
 		ELSE
 			UPDATE cw.imss_products SET 
 						user_id = in_user_id::uuid, 
 						nss = in_nss_number, 
 						ingreso_bruto = in_bruto, 
-						last_deposit = in_last_deposit
+						last_deposit = in_last_deposit,
+						ingreso_neto = in_neto
 			WHERE user_id = in_user_id::uuid;
 			status = 'UPDATE';
 		END IF;
@@ -34,4 +36,4 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-SELECT * FROM cw.set_imss_deposit ('41343e72-a624-4850-aed1-515395f12cec', '12345678963', 150.50, 550.55, 1, 'H');
+SELECT * FROM cw.set_imss_deposit ('41343e72-a624-4850-aed1-515395f12cec', '12345678963', 150.50, 550.55, 1, 550.55, 'H');
