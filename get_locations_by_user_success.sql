@@ -13,4 +13,4 @@ AS $$
 				WHERE o.user_id = in_user_id::uuid AND o.success = in_success;
 	END $$ LANGUAGE plpgsql;
 
-SELECT cw.get_locations_by_user_success('4b49902f-9433-440a-a042-246b36230221', TRUE);
+SELECT cw.get_locations_by_user_success('c962bcad-5314-40ce-8a4a-d2b8cd1b4d87', TRUE);
