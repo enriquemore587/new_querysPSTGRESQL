@@ -49,8 +49,8 @@ BEGIN
 
 	IF user_row IS NULL  THEN
 		SELECT '{"status": "user_personal_data"}'::json into data_user;
-	ELSEIF imss_row IS NULL THEN
-		SELECT '{"status": "no imss_products"}'::json into data_user;
+	--ELSEIF imss_row IS NULL THEN
+	--	SELECT '{"status": "no imss_products"}'::json into data_user;
 	ELSE
 		--SELECT '{"status": "OK information"}'::json into data_user;
 
@@ -63,10 +63,10 @@ BEGIN
 		'", "birthdate": "'||user_row.birthdate::TEXT||
 		'", "civil_status" : "'||user_row.civil_status::TEXT||
 		'", "ocupation_id":'||user_row.ocupations_id ||
-		', "ingreso_bruto":'||imss_row.ingreso_bruto ||
-		', "last_deposit":'||imss_row.last_deposit ||
-		', "ingreso_neto":'||imss_row.ingreso_neto ||
-		', "nss": "'||imss_row.nss
+		', "ingreso_bruto":'||1000::TEXT||--imss_row.ingreso_bruto ||
+		', "last_deposit":'||1000::TEXT||--imss_row.last_deposit ||
+		', "ingreso_neto":'||1000::TEXT||--imss_row.ingreso_neto ||
+		', "nss": "12345678901'--||imss_row.nss
 		||'"}' into temp_text;
 		SELECT temp_text::json INTO data_user;
 	END IF;
